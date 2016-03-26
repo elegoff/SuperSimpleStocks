@@ -32,6 +32,7 @@ dependencies {
   compile 'org.slf4j:slf4j-simple:latest.release'
   compile 'org.scala-lang:scala-library:2.11.7'
   compile 'com.budhash.cliche:cliche-shell:0.9.3'
+  compile 'com.googlecode.json-simple:json-simple:1.1.1'
   testCompile 'junit:junit:latest.release'
 }
 

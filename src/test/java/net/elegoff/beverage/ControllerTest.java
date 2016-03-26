@@ -2,17 +2,21 @@ package net.elegoff.beverage;
 
 
 
+
 import java.util.List;
+
 
 import org.junit.Assert;
 import org.junit.Test;
-
 
 import net.elegoff.beverage.model.Stock;
 import net.elegoff.beverage.model.Trade;
 import net.elegoff.beverage.model.TradeType;
 
 public class ControllerTest {
+	
+	
+	
 
 	@Test
 	public void stockListTest() {

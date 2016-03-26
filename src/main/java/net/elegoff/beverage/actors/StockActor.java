@@ -7,12 +7,12 @@ import net.elegoff.beverage.BeverageTradingException;
 import net.elegoff.beverage.Calculator;
 import net.elegoff.beverage.StockHelper;
 import net.elegoff.beverage.model.Stock;
-import net.elegoff.beverage.model.StockType;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
@@ -21,6 +21,7 @@ import java.util.ArrayList;
  * Actor classes handling Stock related actions and keeping track of list of Stock objects 
  */
 public class StockActor extends UntypedActor{
+	private static Logger logger = LoggerFactory.getLogger(StockActor.class);
 	
 	
 	/**
@@ -31,7 +32,13 @@ public class StockActor extends UntypedActor{
 		private static final long serialVersionUID = 1L;
 
 		@Override public StockActor create() {
-		    return new StockActor(initStocks());
+		    try {
+				return new StockActor(StockHelper.loadJson());
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				
+			}
+		    return null;
 		  }
 		}
 	
@@ -101,18 +108,7 @@ public class StockActor extends UntypedActor{
 	}
 	
 	
-	//provide an initial list of Stocks
-	private static List<Stock> initStocks(){
-		List<Stock> result= new ArrayList<Stock>();
-		
-		result.add(new Stock("TEA", StockType.COMMON, 0d,0,100d));
-		result.add(new Stock("POP", StockType.COMMON, 8d,0,100d));
-		result.add(new Stock("ALE", StockType.COMMON, 23d,0,60d));
-		result.add(new Stock("GIN", StockType.PREFERRED, 8d,2,100d));
-		result.add(new Stock("JOE", StockType.COMMON, 13d,0,250d));
-		
-		return result;
-	}
+	
 	
 	
 

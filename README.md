@@ -45,7 +45,9 @@ e.g help for the *dy* command
 
 
 
-Some predefined Stocks are inserted (once and for all) :
+Some predefined Stocks are loaded at startup from a parsed Stocks.json file
+
+
 
     Beverage-trader> lcs
     TEA | COMMON | 0.0 | 0 | 100.0
@@ -131,7 +133,7 @@ e.g GBCE for the last 10 minutes
     GBCE All Share Index is : 
     16.380476183554617
 
-A console session can be exited via *CTRL+C*
+A console session can be exited via the *exit* keyword
 
 
 HOW TO RUN UNIT TESTS ?
@@ -153,6 +155,7 @@ Cliche shell for command line interactions (https://github.com/budhash/cliche)
 Junit for the test driven approach (http://junit.org)
 Gradle  (http://gradle.org) as a build tool
 Akka for the Actor messaging (http://akka.io)
+Json-simple (https://code.google.com/archive/p/json-simple/) for the Stocks.json file parsing
 
 IMPLEMENTATION DETAILS :
 ------------------------
@@ -182,7 +185,7 @@ Model objects like Trade and Stock are defined in the '**net.elegoff.beverage.mo
 
 When it comes to calculations, a dedicated **Calculator** class gathers the static functions (with no side-effect)
 
-The **StockHelper** class centralizes the query by symbol in the List of known Stocks (DRY principle , https://en.wikipedia.org/wiki/Don't_repeat_yourself)
+The **StockHelper** class centralizes the query by symbol in the List of known Stocks (DRY principle , https://en.wikipedia.org/wiki/Don't_repeat_yourself) and is used for the initial loading of the Stock list
 
 We defined a specific exception 
 '**net.elegoff.beverage.BeverageTradingException**' which is caught and propagated in case something wrong happens and display the message in console
@@ -202,13 +205,13 @@ The item below would basically serve as a *TODO* list in case we had more time t
 
 
 
-- The List of Stocks is currently hardcoded and no additional Stock can be added nor removed (actually we read that "The code should provide only the functionality requested)
+- The List of Stocks is currently loaded at startup and it was not specified that if would have to manage insertion of deletions in this list
 
-- The timeout for actions (1 second) is hardcoded and would preferably be defined in a configuration file in case the user would like to change it.
+- The timeout for actions (1 second) is hard-coded and would preferably be defined in a configuration file in case the user would like to change it.
 
-- The logging output defauts to console, we would preferably use a log file in real production.
+- The logging output defaults to console, we would preferably use a log file in real production.
 
-- The implementation does not prevent selling Stocks we did not previously buy, not does it check if traded quantities are consistant.
+- The implementation does not prevent selling Stocks we did not previously buy, not does it check if traded quantities are consistent.
 (let's not forget this is "very simple" stock :) )
 
 
