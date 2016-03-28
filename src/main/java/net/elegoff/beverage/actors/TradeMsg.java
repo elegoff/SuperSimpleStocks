@@ -1,7 +1,7 @@
 package net.elegoff.beverage.actors;
 
 import java.io.Serializable;
-import java.util.Calendar;
+
 
 import net.elegoff.beverage.model.Stock;
 import net.elegoff.beverage.model.TradeType;
@@ -82,6 +82,8 @@ public class TradeMsg {
 	 * Message sent to TradeActor when requesting a Volume Weight calculation
 	 */
 	public static class VolumeWeighted implements Serializable {
+		
+		private static final long serialVersionUID = -782491393977362104L;
 		private Stock stock;
 		private int duration;
 		

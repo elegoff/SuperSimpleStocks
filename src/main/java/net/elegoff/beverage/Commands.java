@@ -59,21 +59,20 @@ public class Commands {
 	 * @return command line output for dividendYield calculation
 	 */
 	@Command(description="Calculate dividend yield for a given stock symbol and a price", header="Dividend yield is : ")
-	public double dividendYield(
+	public String dividendYield(
 
 			@Param(name="Stock symbol", description="A string identifying a stock symbol") 
 			String symbol, 
 			@Param(name="price", description="A number corresponding to the price")
 			double price) {
-		double result = Double.NaN;
+		String result = Double.toString(Double.NaN);
 
 		try {
-			result = Controller.getDividendYield(symbol, price);
+			result = Double.toString(Controller.getDividendYield(symbol, price));
 		} catch (BeverageTradingException e) {
 			
 			logger.error("Exception raised : " + e.getMessage());
-			
-		}
+			return "Exception raised : " + e.getMessage();		}
 		return result;
 	}
 
@@ -83,19 +82,19 @@ public class Commands {
 	 * @return command line output for P/E Ratio
 	 */
 	@Command(description="Calculate P/E Ratio for a given stock symbol and a price", header="P/E Ratio is : ")
-	public double PERatio(
+	public String PERatio(
 
 			@Param(name="Stock symbol", description="A string identifying a stock symbol") 
 			String symbol, 
 			@Param(name="price", description="A number corresponding to the price")
 			double price){
-		double result = Double.NaN;
+		String result = Double.toString(Double.NaN);
 
 		try {
-			result = Controller.getPERatio(symbol, price);
+			result = Double.toString(Controller.getPERatio(symbol, price));
 		} catch (BeverageTradingException e) {
 			logger.error("Exception raised : " + e.getMessage());
-			
+			return "Exception raised : " + e.getMessage();
 		}
 		return result;
 	}
@@ -142,7 +141,9 @@ public class Commands {
 		try {
 			t = Controller.recordTrade(symbol, quantity, TradeType.SELL, price);
 		} catch (BeverageTradingException e) {
-			logger.error("Exception raised : " + e.getMessage());			}
+			logger.error("Exception raised : " + e.getMessage());	
+			return "Exception raised : " + e.getMessage();
+		}
 		return t.toString();
 	}
 
@@ -152,19 +153,26 @@ public class Commands {
 	 * @return command line output for Volume Weighted Stock Price
 	 */
 	@Command(description="Calculate Volume Weighted Stock Price based on trades", header="Volume Weighted Stock Price is : ")
-	public double calculateVolumeWeighted(
+	public String calculateVolumeWeighted(
 			@Param(name="Stock symbol", description="A string identifying a stock symbol")
 			String symbol, 
 			@Param(name="past minutes", description="Number of minutes in the past")
 			int duration
 			){
-		if (duration <= 0) return 0d;
+		if (duration <= 0){
+			logger.warn("Invalid duration parameter : " + duration);
+			return "You need a positive value for the duration parameter";
+		}
+			
 
-		double result = 0d;
+		String result = Double.toString(Double.NaN);
 		try {
-			result = Controller.calculateVolumeWeighted(symbol, duration);
+			result = Double.toString(
+					Controller.calculateVolumeWeighted(symbol, duration));
 		} catch (BeverageTradingException e) {
-			logger.error("Exception raised : " + e.getMessage());			}
+			logger.error("Exception raised : " + e.getMessage());
+			return "Exception raised : " + e.getMessage();	
+		}
 		return result;
 	}
 

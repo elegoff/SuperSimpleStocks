@@ -37,6 +37,12 @@ public class StockHelper {
 		return li.get();
 	}
 	
+	/**
+	 * @return A list of Stock objects as configured in a Json file
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public static List<Stock> loadJson() throws FileNotFoundException, IOException, ParseException{
 		List<Stock> stocks = new ArrayList<Stock>();
 		

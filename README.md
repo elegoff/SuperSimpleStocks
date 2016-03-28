@@ -133,7 +133,7 @@ e.g GBCE for the last 10 minutes
     GBCE All Share Index is : 
     16.380476183554617
 
-A console session can be exited via the *exit* keyword
+A console session can be exited via the *exit* keyword or *CTRL+C* keys
 
 
 HOW TO RUN UNIT TESTS ?
@@ -150,7 +150,7 @@ EXTERNAL DEPENDENCIES
 ----------------------
 The implementation relies on :
 
-SL4J for logging (http://www.slf4j.org/)
+SL4J + logback for logging (http://www.slf4j.org/  , http://logback.qos.ch/)
 Cliche shell for command line interactions (https://github.com/budhash/cliche)
 Junit for the test driven approach (http://junit.org)
 Gradle  (http://gradle.org) as a build tool
@@ -197,6 +197,8 @@ e.g
     Exception raised : Unknown stock with symbol : DUMMY
     Beverage-trader> [main] ERROR net.elegoff.beverage.Commands - Exception raised : Unknown stock with symbol : DUMMY
 
+The logback.xml defines logging configuration. For example when an esception is raised like above, a new error entry is logged in *simpleStock.log* file
+
 
 KNOWN LIMITATIONS :
 -------------------
@@ -208,8 +210,6 @@ The item below would basically serve as a *TODO* list in case we had more time t
 - The List of Stocks is currently loaded at startup and it was not specified that if would have to manage insertion of deletions in this list
 
 - The timeout for actions (1 second) is hard-coded and would preferably be defined in a configuration file in case the user would like to change it.
-
-- The logging output defaults to console, we would preferably use a log file in real production.
 
 - The implementation does not prevent selling Stocks we did not previously buy, not does it check if traded quantities are consistent.
 (let's not forget this is "very simple" stock :) )
